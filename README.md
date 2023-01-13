@@ -31,6 +31,18 @@ dotnet ef migrations add UserPasswordAdded
 
 ```
 
+Để drop database
+
+```bash
+dotnet ef database drop
+```
+
+Để update một database
+
+```bash
+dotnet ef database update
+```
+
 ## Angular
 
 ng g —help
@@ -50,4 +62,10 @@ In order to pass props from Parent to child component
 
 ```bash
 <app-register [usersFromHomeComponent]="users"></app-register>
+```
+
+- Add guard to the angular
+
+```bash
+ng g g _guards/auth --skip-tests
 ```
