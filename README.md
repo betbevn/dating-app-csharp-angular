@@ -1,6 +1,6 @@
 # dating-app-csharp-angular
 
-ASPDOTNET
+## ASPDOTNET
 
 ```bash
 dotnet new list: Xem các tính năng của dotnet có thể làm được
@@ -29,10 +29,25 @@ dotnet ef database update: Để thực thi các script vừa tạo vào trong d
 
 dotnet ef migrations add UserPasswordAdded
 
+```
+
+## Angular
+
 ng g —help
 
 ng g c nav --skip-tests
 ng g s \_services/account --skip-tests
+
+In order to pass props from Parent to child component
+
+- In the child component, we define a @Input annotation like this
+
+```bash
+@Input() usersFromHomeComponent: any;
 ```
 
-div.container.mt-5
+- And in the parent component, we will pass like this
+
+```bash
+<app-register [usersFromHomeComponent]="users"></app-register>
+```
