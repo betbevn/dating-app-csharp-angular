@@ -47,8 +47,17 @@ dotnet ef database update
 
 ng g —help
 
+- Add a component in angular
+
+```bash
 ng g c nav --skip-tests
+```
+
+- Add a service in angular
+
+```bash
 ng g s \_services/account --skip-tests
+```
 
 In order to pass props from Parent to child component
 
@@ -68,4 +77,10 @@ In order to pass props from Parent to child component
 
 ```bash
 ng g g _guards/auth --skip-tests
+```
+
+- Add interceptor to the angular
+
+```bash
+ng g interceptor \_
 ```
