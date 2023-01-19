@@ -6,18 +6,20 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
+import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
-import { SharedModule } from './_modules/shared.module';
-import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { ErrorInterceptor } from './_interceptor/error.interceptor';
-import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { JwtInterceptor } from './_interceptor/jwt.interceptor';
+import { SharedModule } from './_modules/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
     TestErrorComponent,
     ServerErrorComponent,
     NotFoundComponent,
+    MemberCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,11 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
       multi: true,
     },
   ],
