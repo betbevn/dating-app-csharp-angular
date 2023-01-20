@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptor } from './_interceptor/error.interceptor';
 import { JwtInterceptor } from './_interceptor/jwt.interceptor';
 import { SharedModule } from './_modules/shared.module';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SharedModule } from './_modules/shared.module';
     ServerErrorComponent,
     NotFoundComponent,
     MemberCardComponent,
+    MemberEditComponent,
   ],
   imports: [
     BrowserModule,
