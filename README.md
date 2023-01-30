@@ -13,7 +13,8 @@ dotnet sln list: Liệt kê các solution có trong dự án vừa tạo
 Để chạy một solution, phải cd vào trong thư mực đó sau đó chạy câu lệnh sau:
 
 ```bash
-
+dotnet build: Nên build một project dot net core trước khi vào làm, để biết xem đã đủ package hay chưa
+dotnet list package: Để xem các package đã được cài đặt
 dotnet run
 
 dotnet run -lp https: Chạy với https
