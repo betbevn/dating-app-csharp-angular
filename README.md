@@ -18,7 +18,7 @@ dotnet list package: Để xem các package đã được cài đặt
 dotnet run
 
 dotnet run -lp https: Chạy với https
-dotnet dev-certs https —clean: Clear hết certificate cũ để tạo một certificate mới
+dotnet dev-certs https —-clean: Clear hết certificate cũ để tạo một certificate mới
 dotnet dev-certs https —trust: Trust certificate vừa tạo
 
 dotnet restore: Để cập nhật lại các package trong file csproj mỗi khi thêm/xoá package

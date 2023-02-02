@@ -23,6 +23,8 @@ import { SharedModule } from './_modules/shared.module';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { LoadingInterceptor } from './_interceptor/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
     MemberCardComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    TextInputComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
