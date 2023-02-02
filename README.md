@@ -44,6 +44,71 @@ dotnet ef database drop
 dotnet ef database update
 ```
 
+Truy cập biến môi trường
+
+```bash
+{
+  "Position": {
+    "Title": "Editor",
+    "Name": "Joe Smith"
+  },
+  "MyKey": "My appsettings.json Value",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+public class TestModel : PageModel
+{
+    // requires using Microsoft.Extensions.Configuration;
+    private readonly IConfiguration Configuration;
+
+    public TestModel(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
+    public ContentResult OnGet()
+    {
+        var myKeyValue = Configuration["MyKey"];
+        var title = Configuration["Position:Title"];
+        var name = Configuration["Position:Name"];
+        var defaultLogLevel = Configuration["Logging:LogLevel:Default"];
+
+
+        return Content($"MyKey value: {myKeyValue} \n" +
+                       $"Title: {title} \n" +
+                       $"Name: {name} \n" +
+                       $"Default Log Level: {defaultLogLevel}");
+    }
+}
+
+```
+
+```bash
+IConfiguration configuration
+
+configuration.GetValue<string>("AllowedHosts"); # Lấy giá trị của trường AllowedHosts trong file appsettings.json hoặc appsettings.{enviroment}.json
+configuration.GetSection("CloudinarySettings"); # Lấy CloudinarySettings section trong file appsettings.json hoặc appsettings.{enviroment}.json
+
+```
+
+```bash
+Dependency injection
+
+IServiceCollection Add{name}Services(this IServiceCollection services, IConfiguration config)
+{
+  services.AddScoped<ITokenService, TokenService>();
+  services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings")); // IOptions<CloudinarySettings> config
+}
+
+```
+
 ## Angular
 
 ng g —help
