@@ -10,7 +10,7 @@ dotnet sln add API: Thêm template API (solution) vừa tạo vào dự án
 dotnet sln list: Liệt kê các solution có trong dự án vừa tạo
 ```
 
-Để chạy một solution, phải cd vào trong thư mực đó sau đó chạy câu lệnh sau:
+## Để chạy một solution, phải cd vào trong thư mực đó sau đó chạy câu lệnh sau:
 
 ```bash
 dotnet build: Nên build một project dot net core trước khi vào làm, để biết xem đã đủ package hay chưa
@@ -28,23 +28,81 @@ dotnet tool list -g: Để xem các package đã được installed
 dotnet ef migrations add InitialCreate -o Data/Migrations: Tạo script migration từ Entity
 dotnet ef database update: Để thực thi các script vừa tạo vào trong database
 
-dotnet ef migrations add UserPasswordAdded
+dotnet ef migrations add UserPasswordAdded: Tạo migration từ entities
 
 ```
 
-Để drop database
+## To retrieve user informaion from claims
+
+```bash
+
+# Way 1: Implement extension
+
+public static class ClaimsPrincipalExtensions
+{
+    public static string GetUserEmail(this ClaimsPrincipal principal)
+    {
+        return principal.FindFirstValue(ClaimTypes.Email);
+    }
+
+    public static string GetUserId(this ClaimsPrincipal principal)
+    {
+        return principal.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
+
+    public static string GetUserName(this ClaimsPrincipal principal)
+    {
+        return principal.FindFirstValue(ClaimTypes.Name);
+    }
+
+    public static bool IsCurrentUser(this ClaimsPrincipal principal, string id)
+    {
+        var currentUserId = GetUserId(principal);
+
+        return string.Equals(currentUserId, id, StringComparison.OrdinalIgnoreCase);
+    }
+}
+
+
+var userId = User.GetUserId();
+
+# Way 2: Using IHttpContextAccessor class
+
+public class QueryHandler : IRequestHandler<Query, Result>
+{
+    private readonly CloudpressDbContext _dbContext;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public QueryHandler(CloudpressDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+    {
+        _dbContext = dbContext;
+        _httpContextAccessor = httpContextAccessor;
+    }
+
+    public async Task<ValidationResult> Handle(Query request, CancellationToken cancellationToken)
+    {
+        var userId  = _httpContextAccessor.HttpContext.User.GetUserId();
+
+        // do some stuff with the user, for example retrieve the orders for the current user
+        var orders = _dbContext.Orders.Where(o => o.UserId == userId);
+    }
+}
+
+```
+
+## Để drop database
 
 ```bash
 dotnet ef database drop
 ```
 
-Để update một database
+## Để update một database
 
 ```bash
 dotnet ef database update
 ```
 
-Truy cập biến môi trường
+## Truy cập biến môi trường
 
 ```bash
 {
@@ -109,7 +167,7 @@ IServiceCollection Add{name}Services(this IServiceCollection services, IConfigur
 
 ```
 
-## Angular
+# Angular
 
 ng g —help
 
