@@ -19,11 +19,13 @@ dotnet restore: Để cập nhật lại các package trong file csproj mỗi kh
 
 dotnet watch run: Để run code mới nhất, không cần phải chạy lại server mỗi khi code thay đổi (Hot Reload)
 dotnet tool list -g: Để xem các package đã được installed
-dotnet ef migrations add InitialCreate -o Data/Migrations: Tạo script migration từ Entity
-dotnet ef database update: Để thực thi các script vừa tạo vào trong database
-dotnet ef database drop
 
+dotnet ef migrations add InitialCreate -o Data/Migrations: Tạo script migration từ Entity
 dotnet ef migrations add UserPasswordAdded: Tạo migration từ entities
+
+dotnet ef database update: Để thực thi các script vừa tạo vào trong database
+dotnet ef database drop: Xoá tất cả các bảng trong database
+
 ```
 
 ## **ClaimsPrincipal**: To retrieve user informaion from claims
@@ -149,4 +151,23 @@ IServiceCollection Add{name}Services(this IServiceCollection services, IConfigur
   services.AddScoped<ITokenService, TokenService>();
   services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings")); // IOptions<CloudinarySettings> config
 }
+```
+
+## **AutoMapper**
+
+```bash
+# Implement from Profile class
+    public class AutoMapperProfiles : Profile
+    {
+        public AutoMapperProfiles()
+        {
+            CreateMap<AppUser, MemberDto>()
+            .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain).Url))
+            .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
+            CreateMap<Photo, PhotoDto>();
+            CreateMap<MemberUpdateDto, AppUser>();
+            CreateMap<RegisterDto, AppUser>();
+        }
+    }
+
 ```
