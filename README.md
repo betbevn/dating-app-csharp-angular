@@ -1,6 +1,6 @@
 # dating-app-csharp-angular
 
-## ASPDOTNET
+## **ASPDOTNET command line**
 
 ```bash
 dotnet new list: Xem các tính năng của dotnet có thể làm được
@@ -8,11 +8,7 @@ dotnet new sln: Tạo một dự án mới theo tên thư mục
 dotnet new webapi -n API: Tạo template webapi
 dotnet sln add API: Thêm template API (solution) vừa tạo vào dự án
 dotnet sln list: Liệt kê các solution có trong dự án vừa tạo
-```
 
-## Để chạy một solution, phải cd vào trong thư mực đó sau đó chạy câu lệnh sau:
-
-```bash
 dotnet build: Nên build một project dot net core trước khi vào làm, để biết xem đã đủ package hay chưa
 dotnet list package: Để xem các package đã được cài đặt
 dotnet run
@@ -27,12 +23,12 @@ dotnet watch run: Để run code mới nhất, không cần phải chạy lại 
 dotnet tool list -g: Để xem các package đã được installed
 dotnet ef migrations add InitialCreate -o Data/Migrations: Tạo script migration từ Entity
 dotnet ef database update: Để thực thi các script vừa tạo vào trong database
+dotnet ef database drop
 
 dotnet ef migrations add UserPasswordAdded: Tạo migration từ entities
-
 ```
 
-## To retrieve user informaion from claims
+## **ClaimsPrincipal**: To retrieve user informaion from claims
 
 ```bash
 
@@ -90,21 +86,11 @@ public class QueryHandler : IRequestHandler<Query, Result>
 
 ```
 
-## Để drop database
+## **Truy cập biến môi trường**
 
 ```bash
-dotnet ef database drop
-```
+# Way 1:
 
-## Để update một database
-
-```bash
-dotnet ef database update
-```
-
-## Truy cập biến môi trường
-
-```bash
 {
   "Position": {
     "Title": "Editor",
@@ -146,25 +132,25 @@ public class TestModel : PageModel
     }
 }
 
-```
-
-```bash
-IConfiguration configuration
+# Way 2: IConfiguration configuration
 
 configuration.GetValue<string>("AllowedHosts"); # Lấy giá trị của trường AllowedHosts trong file appsettings.json hoặc appsettings.{enviroment}.json
 configuration.GetSection("CloudinarySettings"); # Lấy CloudinarySettings section trong file appsettings.json hoặc appsettings.{enviroment}.json
 
+# Way 3: IOptions
+
+IOptions<CloudinarySettings> config
+
 ```
 
-```bash
-Dependency injection
+## **Dependency injection**
 
+```bash
 IServiceCollection Add{name}Services(this IServiceCollection services, IConfiguration config)
 {
   services.AddScoped<ITokenService, TokenService>();
   services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings")); // IOptions<CloudinarySettings> config
 }
-
 ```
 
 # Angular
