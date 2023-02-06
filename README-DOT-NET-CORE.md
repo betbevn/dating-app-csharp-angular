@@ -171,3 +171,42 @@ IServiceCollection Add{name}Services(this IServiceCollection services, IConfigur
     }
 
 ```
+
+## **XUnit**
+
+```bash
+# Step 1: The dotnet new sln command creates a new solution in the unit-test.
+
+dotnet new sln -o unit-test
+
+# Step 2: Change directory to the unit-test.
+
+cd unit-test
+
+# Step 3: The dotnet new classlib command creates a new class library project in the PrimeService folder. The new class library will contain the code to be tested.
+
+dotnet new classlib -o PrimeService
+
+# Step 4: In the unit-test directory, run the following command to add the class library project to the solution
+
+dotnet sln add ./PrimeService/PrimeService.csproj
+
+# Step 5: Create the PrimeService.Tests project by running the following command:
+
+dotnet new xunit -o PrimeService.Tests
+
+# Step 6: Add the test project to the solution file by running the following command:
+
+dotnet sln add ./PrimeService.Tests/PrimeService.Tests.csproj
+
+# Step 7: Add the PrimeService class library as a dependency to the PrimeService.Tests project:
+
+dotnet add ./PrimeService.Tests/PrimeService.Tests.csproj reference ./PrimeService/PrimeService.csproj
+
+```
+
+```bash
+# [Fact] attribute declares a test method that's run by the test runner
+# [Theory] represents a suite of tests that execute the same code but have different input arguments.
+# [InlineData] attribute specifies values for those inputs.
+```
