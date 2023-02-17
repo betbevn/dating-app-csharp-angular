@@ -30,10 +30,15 @@ In order to pass props from Parent to child component
 
 ```bash
 ng g g _guards/auth --skip-tests
+ng g g _guards/admin --skip-tests
 ```
 
 - Add interceptor to the angular
 
 ```bash
 ng g interceptor \_
+```
+
+```bash
+ng g d _directives/has-role --skip-tests
 ```

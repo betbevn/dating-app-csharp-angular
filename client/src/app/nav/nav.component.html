@@ -24,8 +24,10 @@
             >Messages</a
           >
         </li>
-        <li class="nav-item" (click)="logout()">
-          <a class="nav-link">Logout</a>
+        <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active"
+            >Admin</a
+          >
         </li>
       </ng-container>
       <li class="nav-item">
