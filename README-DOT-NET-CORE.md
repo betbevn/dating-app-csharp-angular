@@ -3,7 +3,7 @@
 ```bash
 dotnet new list: Xem các tính năng của dotnet có thể làm được
 dotnet new sln: Tạo một dự án mới theo tên thư mục
-dotnet new webapi -n API: Tạo template webapi
+dotnet new webapi -n API: Tạo template webapi (Sẽ tạo một thư mục API, trong thư mục sẽ chứa toàn bộ source code)
 dotnet sln add API: Thêm template API (solution) vừa tạo vào dự án
 dotnet sln list: Liệt kê các solution có trong dự án vừa tạo
 
@@ -209,4 +209,50 @@ dotnet add ./PrimeService.Tests/PrimeService.Tests.csproj reference ./PrimeServi
 # [Fact] attribute declares a test method that's run by the test runner
 # [Theory] represents a suite of tests that execute the same code but have different input arguments.
 # [InlineData] attribute specifies values for those inputs.
+```
+
+## **SignalR**
+
+```bash
+
+# Step 1: Create a presence hub and re-implement OnConnectedAsync and OnDisconnectedAsync
+
+public override async Task OnConnectedAsync()
+{
+    await Clients.Others.SendAsync("UserIsOnline", Context.User.GetUsername());
+}
+public override async Task OnDisconnectedAsync(Exception exception)
+{
+    await Clients.Others.SendAsync("UserIsOffline", Context.User.GetUsername());
+    await base.OnDisconnectedAsync(exception);
+}
+
+# Step 2: Add SignalR service:
+
+services.AddSignalR();
+
+# Step 3: Add Map
+
+app.MapHub<PresenceHub>("hubs/presence");
+
+# Step 4: Authenticating with SignalR
+
+options.Events = new JwtBearerEvents
+{
+    OnMessageReceived = context =>
+    {
+        var accessToken = context.Request.Query["access_token"];
+        var path = context.HttpContext.Request.Path;
+        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+        {
+            context.Token = accessToken;
+        }
+
+        return Task.CompletedTask;
+    }
+};
+
+# Step 5: AllowCredentials
+
+.AllowCredentials()
 ```
