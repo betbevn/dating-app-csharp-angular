@@ -256,3 +256,8 @@ options.Events = new JwtBearerEvents
 
 .AllowCredentials()
 ```
+
+dotnet remove package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet remove package Microsoft.EntityFrameworkCore.Design
+dotnet remove package Microsoft.EntityFrameworkCore.SqlServer
+dotnet remove package Microsoft.EntityFrameworkCore.Tools

@@ -9,7 +9,7 @@ ng g c nav --skip-tests
 - Add a service in angular
 
 ```bash
-ng g s \_services/account --skip-tests
+ng g s _services/account --skip-tests
 ```
 
 In order to pass props from Parent to child component
