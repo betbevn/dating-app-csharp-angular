@@ -8,6 +8,8 @@ dotnet sln add API: Thêm template API (solution) vừa tạo vào dự án
 dotnet sln list: Liệt kê các solution có trong dự án vừa tạo
 
 dotnet add reference <ProjectReference>: Thêm dự án tham chiếu tới
+dotnet add package <PACKAGE_NAME>: Thêm gói vào project
+dotnet remove package <PACKAGE_NAME>: Xoá gói khỏi project
 
 dotnet build: Nên build một project dot net core trước khi vào làm, để biết xem đã đủ package hay chưa
 dotnet list package: Để xem các package đã được cài đặt
